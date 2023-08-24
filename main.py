@@ -37,6 +37,7 @@ input_sequences = np.array(input_sequences)
 X, y = input_sequences[:, :-1], input_sequences[:, -1]
 y = tf.keras.utils.to_categorical(y, num_classes=total_words)
 
+# This
 # Capa de Dropout: Agregar capas de dropout para evitar el sobreajuste.
 # El sobreajuste podría estar causando la repetición excesiva de palabras.
 
@@ -59,7 +60,7 @@ def generate_copla(seed_text, model, max_sequence_length):
                                                                    padding='pre')
 
         predicted_probs = model.predict(token_list, verbose=0)
-
+        # This
         # Utilizar muestreo aleatorio ponderado
         predicted_index = np.random.choice(len(predicted_probs[0]), p=predicted_probs[0])
 
