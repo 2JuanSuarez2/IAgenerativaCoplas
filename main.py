@@ -3,6 +3,9 @@ import numpy as np
 
 # Conjunto de datos de entrenamiento (coplas cojas)
 coplas = [
+    "alla arriba en aquel alto",
+    "me parte",
+    "cuando pienso en ti",
     "ayer pasé por tu casa",
     "y me tiraste un hueso de pollo",
     "como me asusté bastante",
@@ -13,8 +16,15 @@ coplas = [
     "me haces ver estrellitas.",
     "ayer pasé por tu casa",
     "me tiraste un televisor",
-    "y yo hice sam-sung",
-    "y lo esquive."
+    "y lo esquive.",
+    "cuando fui a tu casa",
+    "antier pase por tu casa",
+    "hoy pase por tu casa",
+    "si yo fuera poeta",
+    "entonces me fui",
+    "me cai", 
+    "no paso nada",
+    "me pica"
 ]
 
 # Preprocesamiento de datos
@@ -48,7 +58,7 @@ model.add(tf.keras.layers.LSTM(150, dropout=0.2, recurrent_dropout=0.2))
 model.add(tf.keras.layers.Dense(total_words, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-model.fit(X, y, epochs=100, verbose=1)
+model.fit(X, y, epochs=200, verbose=1)
 
 
 # Función para generar coplas
@@ -60,8 +70,6 @@ def generate_copla(seed_text, model, max_sequence_length):
                                                                    padding='pre')
 
         predicted_probs = model.predict(token_list, verbose=0)
-        # This
-        # Utilizar muestreo aleatorio ponderado
         predicted_index = np.random.choice(len(predicted_probs[0]), p=predicted_probs[0])
 
         output_word = ""
@@ -70,7 +78,6 @@ def generate_copla(seed_text, model, max_sequence_length):
                 output_word = word
                 break
 
-        # Evitar repeticiones inmediatas
         if output_word == seed_text.split()[-1]:
             continue
 
@@ -78,12 +85,23 @@ def generate_copla(seed_text, model, max_sequence_length):
         seed_text = generated_text
     return generated_text
 
-
 # Semillas para generar coplas
 seed_texts = ["ayer pasé", "y me tiraste", "como me asusté", "ayer pasé por tu casa", "y me tiraste un telescopio,",
-              "si no es porque yo me agacho", "ayer pasé por tu casa", "me tiraste un televisor", "y yo hice sam-sung"]
+              "si no es porque yo me agacho", "ayer pasé por tu casa", "me tiraste un televisor", "y yo hice sam-sung",
+              "ayer pase por tu casa","y no estabas","entonces me fui"]
 
-# Generar y mostrar coplas completas
+# Semillas
 for seed_text in seed_texts:
     generated_copla = generate_copla(seed_text, model, max_sequence_length)
     print(f"Semilla: {seed_text}\nGenerada: {generated_copla}\n")
+
+print("----------------------------------------------------------------")
+# Generar y mostrar coplas completas
+for i, seed_text in enumerate(seed_texts, start=1):
+    generated_copla = generate_copla(seed_text, model, max_sequence_length)
+    generated_copla = generated_copla.replace(" .", ".").replace(" ,", ",").capitalize()
+    
+    if i % 3 == 1:
+        print(f"Copla {i // 3 + 1}")
+    
+    print(generated_copla + "\n")
