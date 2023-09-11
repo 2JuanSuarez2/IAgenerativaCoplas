@@ -75,7 +75,6 @@ def generate_copla(seed_text, model, max_sequence_length, max_length=5):
                                                                    padding='pre')
 
         predicted_probs = model.predict(token_indices, verbose=0)
-        # Evitar generar comas
         predicted_probs[0][word_to_index[","]] = 0.0
         
         # Normalizar las probabilidades
@@ -104,7 +103,7 @@ def generate_copla(seed_text, model, max_sequence_length, max_length=5):
 
 # Semillas para generar coplas
 seed_texts = ["ayer pasé", "y me tiraste", "como me asusté", "ayer pasé", "y me tiraste un telescopio,",
-              "si no es porque yo me agacho", "ayer pasé", "me tiraste un televisor", "y yo hice sam-sung",
+              "si no es porque yo me agacho", "ayer pasé", "me tiraste un", "y yo hice",
               "ayer pase","me tiraste una","si no me agacho"]
 
 # Generar y mostrar coplas completas
