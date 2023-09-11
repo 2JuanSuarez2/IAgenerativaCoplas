@@ -213,8 +213,9 @@ def generate_copla(seed_text, model, max_sequence_length):
 
 
 # Semillas para generar coplas
-seed_texts = ["ayer pasé", "y me tiraste", "como me asusté", "ayer pasé por tu casa", "y me tiraste un telescopio,",
-              "si no es porque yo me agacho", "ayer pasé por tu casa", "me tiraste un televisor", "y yo hice sam-sung"]
+seed_texts = ["ayer pasé", "Me comí un león", "Me fui a nadar al mar", "Me fui a una discoteca", "Me enamoré de un pez",
+              "Me fui a casa", "Me fui a vivir solo", "Me fui a morir"]
+
 
 # Generar y mostrar coplas completas
 for seed_text in seed_texts:
