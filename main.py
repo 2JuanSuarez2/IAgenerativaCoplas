@@ -66,15 +66,21 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 model.fit(X, y, epochs=100, verbose=1)
 
 # Función para generar coplas
-def generate_copla(seed_text, model, max_sequence_length):
+def generate_copla(seed_text, model, max_sequence_length, max_length=5):
     generated_text = seed_text
-    for _ in range(max_sequence_length):
+    for _ in range(max_length):
         token_list = word_tokenize(seed_text)
         token_indices = [word_to_index[word] for word in token_list]
         token_indices = tf.keras.preprocessing.sequence.pad_sequences([token_indices], maxlen=max_sequence_length - 1,
                                                                    padding='pre')
 
         predicted_probs = model.predict(token_indices, verbose=0)
+        # Evitar generar comas
+        predicted_probs[0][word_to_index[","]] = 0.0
+        
+        # Normalizar las probabilidades
+        predicted_probs = predicted_probs / predicted_probs.sum()
+
         predicted_index = np.random.choice(len(predicted_probs[0]), p=predicted_probs[0])
 
         output_word = ""
@@ -83,17 +89,23 @@ def generate_copla(seed_text, model, max_sequence_length):
                 output_word = word
                 break
 
-        if output_word == seed_text.split()[-1]:
+        if output_word == seed_text.split()[-1] or output_word == ",":
             continue
 
         generated_text += " " + output_word
         seed_text = generated_text
+        
+        # Verifica si se ha alcanzado la longitud máxima
+        if len(generated_text.split()) >= max_length:
+            break
+    
     return generated_text
 
+
 # Semillas para generar coplas
-seed_texts = ["ayer pasé", "y me tiraste", "como me asusté", "ayer pasé por tu casa", "y me tiraste un telescopio,",
-              "si no es porque yo me agacho", "ayer pasé por tu casa", "me tiraste un televisor", "y yo hice sam-sung",
-              "ayer pase","me tiraste","si no me agacho"]
+seed_texts = ["ayer pasé", "y me tiraste", "como me asusté", "ayer pasé", "y me tiraste un telescopio,",
+              "si no es porque yo me agacho", "ayer pasé", "me tiraste un televisor", "y yo hice sam-sung",
+              "ayer pase","me tiraste una","si no me agacho"]
 
 # Generar y mostrar coplas completas
 for seed_text in seed_texts:
