@@ -10,19 +10,18 @@ nltk.download('punkt')
 # Conjunto de datos de entrenamiento (coplas cojas)
 coplas = [
     "ayer pasé por tu casa",
-    "y me tiraste un hueso de pollo",
-    "como me asusté bastante",
-    "se me puso la piel de gallina",
+    "tiraste un hueso de pollo",
+    "me puso piel de gallina",
     "ayer pasé por tu casa",
-    "y me tiraste un telescopio,",
-    "si no es porque yo me agacho",
-    "me haces ver estrellitas",
+    "y me tiro un telescopio,",
+    "y si no me agacho",
+    "me haces ver muchas estrellitas",
     "ayer pasé por tu casa",
-    "me tiraste un televisor",
+    "usted tiro un gran televisor",
     "y yo hice sam-sung",
     "y lo esquive",
     "ayer pase por tu casa",
-    "me tiraste una estufa",
+    "me tiraste una pequeña estufa",
     "si no me agacho paila"
 ]
 
@@ -102,8 +101,8 @@ def generate_copla(seed_text, model, max_sequence_length, max_length=5):
 
 
 # Semillas para generar coplas
-seed_texts = ["ayer pasé", "y me tiraste", "como me asusté", "ayer pasé", "y me tiraste un telescopio,",
-              "si no es porque yo me agacho", "ayer pasé", "me tiraste un", "y yo hice",
+seed_texts = ["ayer pasé", "tiraste un hueso", "me puso", "ayer pasé", "y me tiro un",
+              "y si no","me haces", "ayer pasé", "usted tiro", "y yo hice",
               "ayer pase","me tiraste una","si no me agacho"]
 
 # Generar y mostrar coplas completas
