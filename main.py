@@ -4,25 +4,143 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 
-# Descargar los datos necesarios para NLTK si aún no lo has hecho
-nltk.download('punkt')
+# Descargar los datos necesarios para NLTK
+# nltk.download('punkt')
 
 # Conjunto de datos de entrenamiento (coplas cojas)
 coplas = [
     "ayer pasé por tu casa",
     "tiraste un hueso de pollo",
     "me puso piel de gallina",
+
     "ayer pasé por tu casa",
     "y me tiro un telescopio,",
     "y si no me agacho",
     "me haces ver muchas estrellitas",
+
     "ayer pasé por tu casa",
     "usted tiro un gran televisor",
     "y yo hice sam-sung",
     "y lo esquive",
+
     "ayer pase por tu casa",
     "me tiraste una pequeña estufa",
-    "si no me agacho paila"
+    "si no me agacho paila",
+
+    "Me comí un león",
+    "y me salió un diente de oro",
+    "y me lo puse en la boca",
+    "y me quedé sin hambre.",
+
+    "Me fui a nadar al mar",
+    "y me encontré un tiburón",
+    "le dije: '¿Qué haces aquí?'",
+    "y me dijo: '¡Nadando!'",
+
+    "Me fui a una discoteca",
+    "y me puse a bailar",
+    "pero como no sabía bailar",
+    "me puse a llorar.",
+
+    "Me fui a un restaurante",
+    "y pedí una tortilla",
+    "pero cuando me la trajeron",
+    "no tenía sal.",
+
+    "Me fui a la escuela",
+    "y me puse a estudiar",
+    "pero como no sabía estudiar",
+    "me puse a jugar.",
+
+    "Me fui a trabajar",
+    "y me puse a descansar",
+    "pero como no tenía trabajo",
+    "me puse a llorar.",
+
+    "Me fui a casa",
+    "y me puse a dormir",
+    "pero como no tenía cama",
+    "me puse a llorar.",
+
+    "Me fui a la cama",
+    "y me puse a soñar",
+    "pero como no sabía soñar",
+    "me puse a llorar.",
+
+    "Me enamoré de un pez",
+    "que vivía en el mar",
+    "para ir a verlo",
+    "me comí un calamar.",
+
+    "Me fui a la montaña",
+    "a buscar un diamante",
+    "pero cuando llegué",
+    "ya lo había encontrado un vidente.",
+
+    "Me fui a la luna",
+    "a buscar un astronauta",
+    "pero cuando llegué",
+    "ya estaba de vuelta en la cama.",
+
+    "Me fui a un partido de fútbol",
+    "y me puse a cantar",
+    "pero como no sabía cantar",
+    "me expulsaron del estadio.",
+
+    "Me fui a la playa",
+    "a buscar un cangrejo",
+    "pero cuando llegué",
+    "ya estaba en un restaurante.",
+
+    "Me fui a un circo",
+    "a ver a un payaso",
+    "pero como no era gracioso",
+    "me fui a casa a dormir.",
+
+    "Me fui a un concierto",
+    "a escuchar a un cantante",
+    "pero como no sabía cantar",
+    "me puse a bailar.",
+
+    "Me fui a un funeral",
+    "a despedir a un amigo",
+    "pero como no sabía llorar",
+    "me puse a reír.",
+
+    "Me fui al cielo",
+    "a hablar con Dios",
+    "pero como no me dejó pasar",
+    "me quedé en la tierra.",
+
+    "Me fui al infierno",
+    "a hablar con el diablo",
+    "pero como no tenía nada que hacer",
+    "me fui a casa a dormir.",
+
+    "Me fui a casa a dormir",
+    "y soñé que volaba",
+    "pero cuando desperté",
+    "me di cuenta de que era el ventilador.",
+
+    "Me fui a la cocina a comer",
+    "y me quemé la lengua",
+    "y me quedé sin habla",
+    "y tuve que comer con los ojos.",
+
+    "Me fui a la cama",
+    "y me quedé sin sueño",
+    "y me tuve que levantar",
+    "a ver si la noche pasaba.",
+
+    "Me fui a vivir solo",
+    "y me aburrió",
+    "y me fui a vivir con mis padres",
+    "que me hacen la comida.",
+
+    "Me fui a morir",
+    "y me volví a levantar",
+    "y me di cuenta de que",
+    "todavía me quedaba mucho por vivir."
 ]
 
 # Preprocesamiento de datos con NLTK
@@ -103,7 +221,9 @@ def generate_copla(seed_text, model, max_sequence_length, max_length=5):
 # Semillas para generar coplas
 seed_texts = ["ayer pasé", "tiraste un hueso", "me puso", "ayer pasé", "y me tiro un",
               "y si no","me haces", "ayer pasé", "usted tiro", "y yo hice",
-              "ayer pase","me tiraste una","si no me agacho"]
+              "ayer pase","me tiraste una","si no me agacho","me fui a una","y me puse a","pero como no",
+              "y pedí una","pero cuando me","no tenía","me comí un","y me salió un","y me lo puse en",
+              "y me quedé","me fui a nadar","y me encontré","le dije:","y me dijo:"]
 
 # Generar y mostrar coplas completas
 for seed_text in seed_texts:
